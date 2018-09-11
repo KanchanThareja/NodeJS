@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<style>
+
+  #chat {
+    list-style-type: none;
+    margin: 0;
+    padding:0;
+  }
+
+  #chat li{
+    padding: 8px 10px;
+    border: solid black;
+    border-radius: 20px;
+    border-width: thin;
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  #chat li:nth-child(odd){
+    background-color: #91bcc4;
+  }
+  input {
+    min-width: 85rem;
+    margin-left: 20px;
+  }
+
+  .foot {
+    padding: 40px;
+  }
+
+  nav {
+    background-color: #1a6f96;
+  }
+
+  .btn {
+    background-color: #7e8d94;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="col-sm-8">
+      <ul id="chat">
+        <li>Hey there add a todo</li>
+      </ul>
+    </div>
+
+    <div class="container-fluid foot">
+      <nav class="navbar fixed-bottom">
+        <form action="" id="chatsubmit" class="form-inline">
+          <input type="text" id="chatmessage"  class="form-control">
+          <button class="btn">Send</button>
+        </form>
+      </nav>
+    </div>
+  </div>
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script>
+  var socket = io();
+  $('#chatsubmit').submit(function(){
+    socket.emit('chat message', $('#chatmessage').val());
+    $('#chat').append($('<li>').text($('#chatmessage').val()));
+    $('#chatmessage').val('');
+
+    return false;
+  });
+
+
+</script>
+</body>
+</html>
